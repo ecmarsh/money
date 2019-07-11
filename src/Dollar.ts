@@ -1,13 +1,12 @@
-class Dollar {
-	constructor(public amount: number) { }
+import Money from './Money'
+
+class Dollar extends Money {
+	constructor(amount: number) {
+		super(amount)
+	}
 
 	times = (multiplier: number): Dollar => {
 		return new Dollar(this.amount * multiplier)
-	}
-
-	equals = (object: Dollar) => {
-		const dollar: Dollar = object
-		return this.amount === dollar.amount
 	}
 }
 
