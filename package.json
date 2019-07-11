@@ -1,0 +1,16 @@
+{
+  "name": "money",
+  "version": "0.0.1",
+  "description": "The Money Example for TDD",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "t:watch": "jest --watch"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3"
+  }
+}
