@@ -1,4 +1,6 @@
-class Money {
+export interface Expression { }
+
+class Money implements Expression {
 	static dollar = (amount: number): Money => {
 		return new Money(amount, "USD")
 	}
@@ -22,6 +24,16 @@ class Money {
 
 	public times = (multiplier: number): Money => {
 		return new Money(this.amount * multiplier, this.currency)
+	}
+
+	public plus = (addend: Money) => {
+		return new Money(this.amount + addend.amount, this.currency)
+	}
+}
+
+export class Bank {
+	reduce = (source: Expression, to: String) => {
+		return Money.dollar(10)
 	}
 }
 
