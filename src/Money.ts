@@ -1,10 +1,10 @@
 class Money {
-	static dollar = (amount: number): Dollar => {
-		return new Dollar(amount, "USD")
+	static dollar = (amount: number): Money => {
+		return new Money(amount, "USD")
 	}
 
-	static franc = (amount: number): Franc => {
-		return new Franc(amount, "CHF")
+	static franc = (amount: number): Money => {
+		return new Money(amount, "CHF")
 	}
 
 	constructor(protected amount: number, public currency: string) {
@@ -25,24 +25,5 @@ class Money {
 	}
 }
 
-//////////
-// DOLLAR
-/////////
-class Dollar extends Money {
-	constructor(amount: number, currency: string) {
-		super(amount, currency)
-		this.currency = currency
-	}
-}
-
-///////////
-// FRANC
-//////////
-class Franc extends Money {
-	constructor(amount: number, currency: string) {
-		super(amount, currency)
-	}
-}
 
 export default Money
-export { Dollar, Franc }
