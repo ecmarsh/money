@@ -1,17 +1,20 @@
-import Dollar from '../Dollar'
-import Franc from '../Franc'
+import Money, { Dollar, Franc } from '../Money'
+
 
 describe('Dollar', () => {
 
 	test('Multiplication', () => {
-		const five: Dollar = new Dollar(5)
-		expect(new Dollar(10).equals(five.times(2))).toBe(true)
-		expect(new Dollar(15).equals(five.times(3))).toBe(true)
+		const five: Money = Money.dollar(5)
+		expect(Money.dollar(10).equals(five.times(2))).toBe(true)
+		expect(Money.dollar(15).equals(five.times(3))).toBe(true)
 	})
 
 	test('Equality', () => {
-		expect(new Dollar(5).equals(new Dollar(5))).toBe(true)
-		expect(new Dollar(5).equals(new Dollar(6))).toBe(false)
+		expect(Money.dollar(5).equals(Money.dollar(5))).toBe(true)
+		expect(Money.dollar(5).equals(Money.dollar(6))).toBe(false)
+		expect(Money.franc(5).equals(Money.franc(5))).toBe(true)
+		expect(Money.franc(5).equals(Money.franc(6))).toBe(false)
+		expect(Money.franc(5).equals(Money.dollar(5))).toBe(false)
 	})
 
 })
@@ -19,9 +22,22 @@ describe('Dollar', () => {
 describe('Franc', () => {
 
 	test('Multiplication', () => {
-		const five: Franc = new Franc(5)
-		expect(new Franc(10).equals(five.times(2))).toBe(true)
-		expect(new Franc(15).equals(five.times(3))).toBe(true)
+		const five: Money = Money.franc(5)
+		expect(Money.franc(10).equals(five.times(2))).toBe(true)
+		expect(Money.franc(15).equals(five.times(3))).toBe(true)
+	})
+
+})
+
+describe('Currency', () => {
+
+	test('Currency descriptors', () => {
+		expect('USD').toEqual(Money.dollar(1).currency)
+		expect('CHF').toEqual(Money.franc(1).currency)
+	})
+
+	test('Different subclass equality', () => {
+		expect(new Money(10, 'CHF').equals(new Franc(10, 'CHF'))).toBe(true)
 	})
 
 })
@@ -41,6 +57,9 @@ describe('Franc', () => {
  * [X] 5 CHF * 2 = 10 CHF
  * [] Dollar/Franc duplication
  * [X] Common equals
- * [] Common times
+ * [X] Common times
+ * [X] Compare Francs to Dollars
+ * [X] Currency?
+ * [] Delete testFrancMultiplication?
  *
  */
