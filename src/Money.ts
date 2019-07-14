@@ -1,8 +1,9 @@
-import HashTable from './HashTable'
+import HashTable, { Hashable } from './HashTable'
 
 export interface Expression {
   reduce(bank: Bank, to: string): Money
   plus(addend: Expression): Expression
+  times(multiplier: number): Expression
 }
 
 class Money implements Expression {
@@ -79,12 +80,16 @@ export class Sum implements Expression {
   }
 
   public plus = (addend: Expression): Expression => {
-    return this
+    return new Sum(this, addend)
+  }
+
+  public times = (multiplier: number): Expression => {
+    return new Sum(this.augend.times(multiplier), this.addend.times(multiplier))
   }
 }
 
 // PAIR
-export class Pair {
+export class Pair implements Hashable {
   constructor(private from: string, private to: string) {
     this.from = from
     this.to = to

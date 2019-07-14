@@ -72,6 +72,40 @@ describe('Money', () => {
     expect(Money.dollar(10).equals(result)).toBe(true)
   })
 
+  test('Sum plus Money', () => {
+    let fiveBucks: Expression
+    let tenFrancs: Expression
+    let bank: Bank
+    let sum: Expression
+    let result: Money
+
+    fiveBucks = Money.dollar(5)
+    tenFrancs = Money.franc(10)
+    bank = new Bank()
+    bank.addRate('CHF', 'USD', 2)
+    sum = new Sum(fiveBucks, tenFrancs).plus(fiveBucks)
+    result = bank.reduce(sum, 'USD')
+
+    expect(Money.dollar(15).equals(result)).toBe(true)
+  })
+
+  test('Sum times', () => {
+    let fiveBucks: Expression
+    let tenFrancs: Expression
+    let bank: Bank
+    let sum: Expression
+    let result: Money
+
+    fiveBucks = Money.dollar(5)
+    tenFrancs = Money.franc(10)
+    bank = new Bank()
+    bank.addRate('CHF', 'USD', 2)
+    sum = new Sum(fiveBucks, tenFrancs).times(2)
+    result = bank.reduce(sum, 'USD')
+
+    expect(Money.dollar(20).equals(result)).toBe(true)
+  })
+
 })
 
 
@@ -81,13 +115,13 @@ describe('Money', () => {
  *
  * [X] $5 + 10 CHF = $10 if rate is 2:1
  * [X] $5 + $5 = $10
- * [] Return Money from $5 + $5
+ * [-] Return Money from $5 + $5
  * [X] Bank.reduce(Money)
  * [X] Reduce Money with conversion
  * [X] Reduce(Bank, String)
  * [X] HashTable
- * [] Sum.plus
- * [] Expression.times
+ * [X] Sum.plus
+ * [X] Expression.times
  * [X] $5 * 2 = $10
  * [X] Make `amount` private
  * [X] Dollar side effects?
@@ -102,6 +136,6 @@ describe('Money', () => {
  * [X] Common times
  * [X] Compare Francs to Dollars
  * [X] Currency?
- * [X] Delete test Franc multiplication`?
+ * [X] Delete test Franc multiplication?
  *
  */

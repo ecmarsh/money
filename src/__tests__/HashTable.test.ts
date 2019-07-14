@@ -9,9 +9,9 @@ beforeEach(() => {
 
 describe('HashTable', () => {
   test('Access', () => {
-    const VALUE = 2
-    expect(hashTable.set(hashable, VALUE)).toBeTruthy()
-    expect(hashTable.get(hashable)).toEqual(VALUE)
+    const HASH_VALUE = 2
+    expect(hashTable.set(hashable, HASH_VALUE)).toBeTruthy()
+    expect(hashTable.get(hashable)).toEqual(HASH_VALUE)
   })
 
   test('Nonexistent access', () => {
