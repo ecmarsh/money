@@ -1,16 +1,18 @@
 export interface Hashable {
-	hashCode(): number
+  hashCode(): number
 }
 
 export default class HashTable<T> {
-	private items: { [key: number]: T } = {}
+  private items: { [key: number]: T } = {}
 
-	public get = (key: Hashable) => {
-		return this.items[key.hashCode()]
-	}
+  public get = (key: Hashable) => {
+    return this.items[key.hashCode()]
+  }
 
-	public set = (key: Hashable, value: T) => {
-		this.items[key.hashCode()] = value
-		return this.items
-	}
+  public set = (key: Hashable, value: T) => {
+    this.items[key.hashCode()] = value
+    return this.items
+  }
+
+  public clear = () => this.items = {}
 }
