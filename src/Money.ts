@@ -42,28 +42,6 @@ class Money implements Expression {
   }
 }
 
-// BANK
-export class Bank {
-  public reduce = (source: Expression, to: string): Money => {
-    return source.reduce(this, to)
-  }
-
-  public rate = (from: string, to: string): number => {
-    if (from == to) {
-      return 1
-    }
-
-    const rate: number = this.rates.get(new Pair(from, to)) as number
-    return rate
-  }
-
-  public addRate = (from: string, to: string, rate: number) => {
-    this.rates.set(new Pair(from, to), rate)
-  }
-
-  public rates: HashTable<number> = new HashTable()
-}
-
 // SUM
 export class Sum implements Expression {
   constructor(
@@ -88,16 +66,33 @@ export class Sum implements Expression {
   }
 }
 
+// BANK
+export class Bank {
+  public rates: HashTable<number> = new HashTable()
+
+  public rate = (from: string, to: string): number => {
+    if (from == to) {
+      return 1
+    }
+
+    const rate: number = this.rates.get(new Pair(from, to))
+    return rate
+  }
+
+  public addRate = (from: string, to: string, rate: number) => {
+    this.rates.set(new Pair(from, to), rate)
+  }
+
+  public reduce = (source: Expression, to: string): Money => {
+    return source.reduce(this, to)
+  }
+}
+
 // PAIR
 export class Pair implements Hashable {
   constructor(private from: string, private to: string) {
     this.from = from
     this.to = to
-  }
-
-  public equals(object: Object) {
-    const pair: Pair = object as Pair
-    return this.from == pair.from && this.to == pair.to
   }
 
   public hashCode = () => {

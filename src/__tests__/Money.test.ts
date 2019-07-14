@@ -26,6 +26,9 @@ describe('Money', () => {
     const reduced: Money = bank.reduce(sum, 'USD')
     expect(Money.dollar(10).equals(reduced)).toBe(true)
   })
+})
+
+describe('Mixed currencies', () => {
 
   test('Plus returns Sum', () => {
     const five: Money = Money.dollar(5)
@@ -73,35 +76,27 @@ describe('Money', () => {
   })
 
   test('Sum plus Money', () => {
-    let fiveBucks: Expression
-    let tenFrancs: Expression
-    let bank: Bank
-    let sum: Expression
-    let result: Money
-
-    fiveBucks = Money.dollar(5)
-    tenFrancs = Money.franc(10)
-    bank = new Bank()
+    const bank: Bank = new Bank()
     bank.addRate('CHF', 'USD', 2)
-    sum = new Sum(fiveBucks, tenFrancs).plus(fiveBucks)
-    result = bank.reduce(sum, 'USD')
+
+    const fiveBucks: Expression = Money.dollar(5)
+    const tenFrancs: Expression = Money.franc(10)
+
+    const sum: Expression = new Sum(fiveBucks, tenFrancs).plus(fiveBucks)
+    const result: Money = bank.reduce(sum, 'USD')
 
     expect(Money.dollar(15).equals(result)).toBe(true)
   })
 
   test('Sum times', () => {
-    let fiveBucks: Expression
-    let tenFrancs: Expression
-    let bank: Bank
-    let sum: Expression
-    let result: Money
-
-    fiveBucks = Money.dollar(5)
-    tenFrancs = Money.franc(10)
-    bank = new Bank()
+    const bank: Bank = new Bank()
     bank.addRate('CHF', 'USD', 2)
-    sum = new Sum(fiveBucks, tenFrancs).times(2)
-    result = bank.reduce(sum, 'USD')
+
+    const fiveBucks: Expression = Money.dollar(5)
+    const tenFrancs: Expression = Money.franc(10)
+
+    const sum: Expression = new Sum(fiveBucks, tenFrancs).times(2)
+    const result: Money = bank.reduce(sum, 'USD')
 
     expect(Money.dollar(20).equals(result)).toBe(true)
   })
@@ -125,11 +120,11 @@ describe('Money', () => {
  * [X] $5 * 2 = $10
  * [X] Make `amount` private
  * [X] Dollar side effects?
- * [] Money rounding?
+ * [-] Money rounding?
  * [X] equals()
- * [] hashCode()
- * [] Equal Null
- * [] Equal object
+ * [X] hashCode()
+ * [-] Equal Null
+ * [X] Equal object
  * [X] 5 CHF * 2 = 10 CHF
  * [X] Dollar/Franc duplication
  * [X] Common equals
